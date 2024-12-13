@@ -4,20 +4,19 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\Recipe $model */
+/** @var app\models\Ingredient $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Recipes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Ingredients', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="recipe-view">
+<div class="ingredient-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Ingredients', ['ingredient/index', 'recipe_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -32,19 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'description:ntext',
-            [
-                'attribute' => 'img',
-                'format' => 'raw', // Позволяет выводить HTML
-                'value' => function($model) {
-                    return Html::img(Yii::getAlias('@web/img/recipes/') . $model->img, [
-                        'alt' => $model->name,
-                        'style' => 'width:100px; height:auto;', 
-                    ]);
-                },
-            ],
-            'time',
-            'cooking',
+            'recipe_id',
         ],
     ]) ?>
 
