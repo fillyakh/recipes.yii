@@ -5,6 +5,7 @@ namespace app\controllers;
 use yii\web\Controller;
 use app\models\Recipe;
 use app\models\Tag;
+use app\models\Ingredient;
 use yii\data\Pagination;
 
 use Yii;
@@ -51,7 +52,9 @@ class MainController extends Controller
     public function actionRecipe($recipe_id)
     {
         $recipe = Recipe::findOne($recipe_id);
+        $ingredients = Ingredient::find()->where(['recipe_id' => $recipe_id])->all();
+        dd($ingredients);
         // dd($tag);
-        return $this->render('recipe', ['recipe' => $recipe]);
+        return $this->render('recipe', ['recipe' => $recipe, 'recipe_id' => $recipe_id]);
     }
 }

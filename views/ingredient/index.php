@@ -10,7 +10,9 @@ use yii\grid\GridView;
 /** @var app\models\IngredientSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Ingredients';
+$this->title = 'Ingredients: ' . $recipe->name;
+
+$this->params['breadcrumbs'][] = ['label' => 'Recipe', 'url' => '/recipe/view?id=' . $recipe->id];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ingredient-index">
@@ -18,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Ingredient', ['create', 'recipe_id' => $recipe_id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Ingredient', ['create', 'recipe_id' => $recipe->id], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

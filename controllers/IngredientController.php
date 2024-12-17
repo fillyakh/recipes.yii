@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Ingredient;
 use app\models\IngredientSearch;
+use app\models\Recipe;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -41,11 +42,12 @@ class IngredientController extends Controller
         
         $searchModel = new IngredientSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $recipe = Recipe::findOne($recipe_id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'recipe_id' => $recipe_id,
+            'recipe' => $recipe,
         ]);
     }
 
@@ -67,9 +69,10 @@ class IngredientController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($recipe_id)
     {
         $model = new Ingredient();
+        $model->recipe_id = $recipe_id;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -78,7 +81,6 @@ class IngredientController extends Controller
         } else {
             $model->loadDefaultValues();
         }
-        dd($_GET);
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -113,9 +115,10 @@ class IngredientController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $ingredient = $this->findModel($id);
+        $recipe_id = $ingredient->recipe_id;
+        $ingredient->delete();
+        return $this->redirect(['index', 'recipe_id' => $recipe_id]);
     }
 
     /**
