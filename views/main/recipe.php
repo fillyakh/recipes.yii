@@ -78,9 +78,9 @@
           <article class="second-column">
             <div>
               <h4>ingredients</h4>
-              <p class="single-ingredient">1 1/2 cups dry pancake mix</p>
-              <p class="single-ingredient">1/2 cup flax seed meal</p>
-              <p class="single-ingredient">1 cup skim milk</p>
+              <?php foreach($ingredients as $ingredient): ?>
+                <p class="single-ingredient"><?= $ingredient['name']?></p>
+              <?php endforeach;?>
             </div>
             <div>
               <h4>tools</h4>

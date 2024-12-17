@@ -53,8 +53,8 @@ class MainController extends Controller
     {
         $recipe = Recipe::findOne($recipe_id);
         $ingredients = Ingredient::find()->where(['recipe_id' => $recipe_id])->all();
-        dd($ingredients);
+        // dd($ingredients);
         // dd($tag);
-        return $this->render('recipe', ['recipe' => $recipe, 'recipe_id' => $recipe_id]);
+        return $this->render('recipe', ['recipe' => $recipe, 'ingredients' => $ingredients]);
     }
 }
