@@ -4,16 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\Instruction $model */
+/** @var app\models\RecipeTools $model */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Recipes', 'url' => '/admin'];
-$this->params['breadcrumbs'][] = ['label' => 'Recipe', 'url' => '/recipe/view?id=' . $model->recipe_id];
-$this->params['breadcrumbs'][] = ['label' => 'Instructions', 'url' => ['index?recipe_id=' . $model->recipe_id]];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Recipe Tools', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="instruction-view">
+<div class="recipe-tools-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -32,9 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
             'recipe_id',
-            'step',
+            'tool_id',
         ],
     ]) ?>
 

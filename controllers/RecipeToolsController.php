@@ -2,19 +2,17 @@
 
 namespace app\controllers;
 
-use app\models\Instruction;
-use app\models\InstructionSearch;
+use app\models\RecipeTools;
+use app\models\RecipeToolsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Recipe;
 
 /**
- * InstructionController implements the CRUD actions for Instruction model.
+ * RecipeToolsController implements the CRUD actions for RecipeTools model.
  */
-class InstructionController extends Controller
+class RecipeToolsController extends Controller
 {
-    public $layout = 'admin';
     /**
      * @inheritDoc
      */
@@ -34,26 +32,23 @@ class InstructionController extends Controller
     }
 
     /**
-     * Lists all Instruction models.
+     * Lists all RecipeTools models.
      *
      * @return string
      */
-    public function actionIndex($recipe_id)
+    public function actionIndex()
     {
-        $searchModel = new InstructionSearch();
+        $searchModel = new RecipeToolsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-        $recipe = Recipe::findOne($recipe_id);
-        // dd($recipe);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'recipe' => $recipe,
         ]);
     }
 
     /**
-     * Displays a single Instruction model.
+     * Displays a single RecipeTools model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -66,18 +61,16 @@ class InstructionController extends Controller
     }
 
     /**
-     * Creates a new Instruction model.
+     * Creates a new RecipeTools model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate($recipe_id)
+    public function actionCreate()
     {
-        $model = new Instruction();
-        $model->recipe_id = $recipe_id;
+        $model = new RecipeTools();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                // dd($model);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -90,7 +83,7 @@ class InstructionController extends Controller
     }
 
     /**
-     * Updates an existing Instruction model.
+     * Updates an existing RecipeTools model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -110,7 +103,7 @@ class InstructionController extends Controller
     }
 
     /**
-     * Deletes an existing Instruction model.
+     * Deletes an existing RecipeTools model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -118,23 +111,21 @@ class InstructionController extends Controller
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
-        $recipe_id = $model->recipe_id;
-        $model->delete();
+        $this->findModel($id)->delete();
 
-        return $this->redirect(['index', 'recipe_id' => $recipe_id]);
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Instruction model based on its primary key value.
+     * Finds the RecipeTools model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Instruction the loaded model
+     * @return RecipeTools the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Instruction::findOne(['id' => $id])) !== null) {
+        if (($model = RecipeTools::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
