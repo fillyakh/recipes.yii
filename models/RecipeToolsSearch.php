@@ -39,7 +39,7 @@ class RecipeToolsSearch extends RecipeTools
      */
     public function search($params)
     {
-        $query = RecipeTools::find();
+        $query = RecipeTools::find()->with('tool')->where(['recipe_id'=>$params['recipe_id']]);
 
         // add conditions that should always apply here
 

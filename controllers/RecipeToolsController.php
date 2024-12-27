@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\RecipeTools;
 use app\models\RecipeToolsSearch;
+use app\models\Recipe;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -13,6 +14,7 @@ use yii\filters\VerbFilter;
  */
 class RecipeToolsController extends Controller
 {
+    public $layout = 'admin';
     /**
      * @inheritDoc
      */
@@ -36,27 +38,17 @@ class RecipeToolsController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($recipe_id)
     {
         $searchModel = new RecipeToolsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $recipe = Recipe::findOne($recipe_id);
+        dd($recipe);
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single RecipeTools model.
-     * @param int $id ID
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
         ]);
     }
 
@@ -83,26 +75,6 @@ class RecipeToolsController extends Controller
     }
 
     /**
-     * Updates an existing RecipeTools model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Deletes an existing RecipeTools model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
@@ -114,21 +86,5 @@ class RecipeToolsController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the RecipeTools model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return RecipeTools the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = RecipeTools::findOne(['id' => $id])) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

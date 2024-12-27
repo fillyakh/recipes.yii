@@ -43,4 +43,10 @@ class RecipeTools extends \yii\db\ActiveRecord
             'tool_id' => 'Tool ID',
         ];
     }
+
+    public function getTool()
+    {
+        return $this->hasOne(Tool::class, ['id' => 'tool_id']); // tool_id — это поле, связывающее таблицы
+        // return Tool::findOne($this->tool_id);
+    }
 }

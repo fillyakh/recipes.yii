@@ -33,18 +33,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'name', // Поле из модели
                 'label' => 'Имя инструмента',
                 'value' => function ($model) {
-                    return $model-> 
-                        ? Html::(Yii::getAlias('@web/img/recipes/' . $model->img), ['style' => 'height:50px;']) 
-                        : '<span class="text-muted">Нет изображения</span>';
+                    return $model->tool->name ?? 'Не указано'; 
                 },
                 'filter' => false,
             ],
             [
                 'class' => ActionColumn::className(),
+                'template' => '{delete}', // Оставить только нужные действия (например, редактирование и удаление)
                 'urlCreator' => function ($action, RecipeTools $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
             ],
+            
         ],
     ]); ?>
 
