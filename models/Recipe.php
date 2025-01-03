@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\web\UploadedFile;
+use app\models\Ingredient;
 
 /**
  * This is the model class for table "recipes".
@@ -56,4 +57,20 @@ class Recipe extends \yii\db\ActiveRecord
         }
         return parent::beforeSave($insert);
     }
+
+    public function getIngredients()
+    {
+        // return Ingredient::find()->where(['recipe_id' => $this->id])->all();
+        return $this->hasMany(Ingredient::class, ['recipe_id' => 'id']);
+    }
+
+    public function getTools()
+    {
+        // $tools = RecipeTools::find()->where(['recipe_id' => $recipe_id])->all();
+        // foreach($tools as $tool) {
+        //     $data[] = Tool::find()->where(['id' => $tool->tool_id])->one();
+        // }
+        return $this->hasMany(Tool::class, ['id' => 'tool_id'])->viaTable('recipe_tools', ['recipe_id' => 'id']);
+    }
+    
 }

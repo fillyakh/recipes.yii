@@ -8,6 +8,7 @@ use app\models\Recipe;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * RecipeToolsController implements the CRUD actions for RecipeTools model.
@@ -43,12 +44,13 @@ class RecipeToolsController extends Controller
         $searchModel = new RecipeToolsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
         $recipe = Recipe::findOne($recipe_id);
-        dd($recipe);
+        // dd($recipe);
 
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'recipe' => $recipe,
         ]);
     }
 
@@ -57,13 +59,22 @@ class RecipeToolsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($recipe_id)
     {
         $model = new RecipeTools();
 
+        $model->recipe_id = $recipe_id;
+
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            $model->load($this->request->post());
+            $data = RecipeTools::find()->where(['tool_id' => $model->tool_id, 'recipe_id'=>$model->recipe_id])->one();
+            if ($data) {
+                Yii::$app->session->setFlash('error', 'Такой инструмент уже добавлен.');
+                return $this->redirect(['create', 'recipe_id' => $model->recipe_id]);
+            }
+            // dd($data);
+            if ($model->save()) {
+                return $this->redirect(['index', 'recipe_id' => $model->recipe_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -83,8 +94,18 @@ class RecipeToolsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'recipe_id' => $model->recipe_id]);
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = RecipeTools::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

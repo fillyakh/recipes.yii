@@ -6,7 +6,9 @@ use yii\helpers\Html;
 /** @var app\models\RecipeTools $model */
 
 $this->title = 'Create Recipe Tools';
-$this->params['breadcrumbs'][] = ['label' => 'Recipe Tools', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Recipes', 'url' => ['recipe/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Recipe', 'url' => ['recipe/view', 'id' => $model->recipe_id]];
+$this->params['breadcrumbs'][] = ['label' => 'Tools', 'url' => ['index', 'recipe_id' => $model->recipe_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="recipe-tools-create">
@@ -18,3 +20,4 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+<!-- /home/recipes/recipe/tools/create -->
