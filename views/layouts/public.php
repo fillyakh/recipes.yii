@@ -24,7 +24,7 @@
     <nav class="navbar">
       <div class="nav-center">
         <div class="nav-header">
-          <a href="index.html" class="nav-logo">
+          <a href="/" class="nav-logo">
             <img src="/img/logo.svg" alt="simply recipes" />
           </a>
           <button class="nav-btn btn">

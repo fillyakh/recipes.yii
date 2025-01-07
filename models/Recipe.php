@@ -73,4 +73,13 @@ class Recipe extends \yii\db\ActiveRecord
         return $this->hasMany(Tool::class, ['id' => 'tool_id'])->viaTable('recipe_tools', ['recipe_id' => 'id']);
     }
     
+    public function getInstructions()
+    {
+        return $this->hasMany(Instruction::class, ['recipe_id' => 'id'])->orderBy(['step' => SORT_ASC]);
+    }
+
+    public function getTags()
+    {
+        return $this->hasMany(Tag::class, ['id' => 'tag_id'])->viaTable('recipe_tags', ['recipe_id' => 'id']);
+    }
 }

@@ -7,6 +7,7 @@ use app\models\Recipe;
 use app\models\Tag;
 use app\models\RecipeTools;
 use app\models\Tool;
+use app\models\Instruction;
 use yii\data\Pagination;
 
 use Yii;
@@ -54,13 +55,12 @@ class MainController extends Controller
     {
         // $recipe = Recipe::findOne($recipe_id);
 
-        $recipe = Recipe::find()->with('ingredients')->where(['id' => $recipe_id])->one();
+        $recipe = Recipe::find()->with(['ingredients', 'tools', 'instructions', 'tags'])->where(['id' => $recipe_id])->one();
+        // dd($recipe);
 
-        $recipes = Recipe::find()->with('tools')->all();
-
-        dd($recipes);
+        // dd($recipe->ingredients);
         // dd($ingredients);
         // dd($tag);
-        return $this->render('recipe', ['recipe' => $recipe, 'ingredients' => $ingredients,]);
+        return $this->render('recipe', ['recipe' => $recipe]);
     }
 }

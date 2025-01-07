@@ -25,69 +25,44 @@
                 <p>6 servings</p>
               </article>
             </div>
+            
             <p class="recipe-tags">
-              Tags : <a href="tag-template.html">beef</a>
-              <a href="tag-template.html">breakfast</a>
-              <a href="tag-template.html">pancakes</a>
-              <a href="tag-template.html">food</a>
+              Tags : 
+              <?php foreach($recipe->tags as $tag):?>
+              <a href="tag-template.html"><?= $tag->name ?></a>
+              <? endforeach?>
             </p>
+            
           </article>
         </section>
         <!-- content -->
         <section class="recipe-content">
           <article>
             <h4>instructions</h4>
+            <?php foreach($recipe->instructions as $instruction):?>
             <!-- single instruction -->
             <div class="single-instruction">
               <header>
-                <p>step 1</p>
+                <p>step <?= $instruction->step ?></p>
                 <div></div>
               </header>
-              <p>
-                I'm baby mustache man braid fingerstache small batch venmo
-                succulents shoreditch.
-              </p>
+              <p><?= $instruction->name?></p>
             </div>
             <!-- end of single instruction -->
-            <!-- single instruction -->
-            <div class="single-instruction">
-              <header>
-                <p>step 2</p>
-                <div></div>
-              </header>
-              <p>
-                Pabst pitchfork you probably haven't heard of them, asymmetrical
-                seitan tousled succulents wolf banh mi man bun bespoke selfies
-                freegan ethical hexagon.
-              </p>
-            </div>
-            <!-- end of single instruction -->
-            <!-- single instruction -->
-            <div class="single-instruction">
-              <header>
-                <p>step 3</p>
-                <div></div>
-              </header>
-              <p>
-                Polaroid iPhone bitters chambray. Cornhole swag kombucha
-                live-edge.
-              </p>
-            </div>
-            <!-- end of single instruction -->
+             <?php endforeach; ?>
           </article>
           <article class="second-column">
             <div>
               <h4>ingredients</h4>
-              <?php foreach($ingredients as $ingredient): ?>
-                <p class="single-ingredient"><?= $ingredient['name']?></p>
+              <?php foreach($recipe->ingredients as $ingredient): ?>
+                <p class="single-ingredient"><?= $ingredient->name?></p>
               <?php endforeach;?>
             </div>
             <div>
               <h4>tools</h4>
-              <p class="single-tool">Hand Blender</p>
-              <p class="single-tool">Large Heavy Pot With Lid</p>
-              <p class="single-tool">Measuring Spoons</p>
-              <p class="single-tool">Measuring Cups</p>
+              <?php foreach($recipe->tools as $tool): ?>
+              <p class="single-tool"><?= $tool->name?></p>
+              <?php endforeach ?>
             </div>
           </article>
         </section>

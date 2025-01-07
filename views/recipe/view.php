@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Ingredients', ['ingredient/index', 'recipe_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Instructions', ['instruction/index', 'recipe_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Tools', ['recipe-tools/index', 'recipe_id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Tags', ['recipe-tags/index', 'recipe_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
