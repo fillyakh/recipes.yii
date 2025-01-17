@@ -16,7 +16,17 @@
           <h4>recipes</h4>
           <div class="tags-list">
             <?php foreach ($tags as $tag): ?>
-            <a href="/tag/<?= $tag['id']?>"><?php echo $tag['name']; ?> (1)</a>
+            
+            <!-- <a href="/tag/<?= $tag->id ?>">
+              <?php 
+                  // echo $tag->name; 
+                  // $tagCount = \app\models\RecipeTags::find()->where(['tag_id' => $tag->id]) ->count(); 
+                  // echo " ({$tagCount})";
+              ?>
+            </a> -->
+            <?php if($tag->countRecipes): ?>
+            <a href="/tag/<?= $tag->id?>"><?= $tag->name ?> (<?= $tag->countRecipes ?>) </a>
+            <?php endif; ?>
             <!-- <a href="tag-template.html">Breakfast (2)</a>
             <a href="tag-template.html">Carrots (3)</a>
             <a href="tag-template.html">Food (4)</a> -->

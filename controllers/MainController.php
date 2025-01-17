@@ -19,20 +19,21 @@ class MainController extends Controller
     {
         $recipes = Recipe::find()->all(); 
         $tags = Tag::find()->all();
-        // dd($tags);
+        // dd($tags[0]->countRecipes);
         return $this->render('index', ['recipes' => $recipes, 'tags' => $tags]);
     }
     
     public function actionTag($tag_id)
     {
-        $tag = Tag::findOne($tag_id);
-        // dd($tag);
+        // $tag = Tag::findOne($tag_id);
+        $tag = Tag::find()->with(['recipes'])->where(['id' => $tag_id])->one();
+        // dd($tag->recipes);
         return $this->render('tag', ['tag' => $tag]);
     }
 
     public function actionTags()
     {
-        $tags = Tag::find()->all();
+        $tags = Tag::find()->with('recipes')->all();
         return $this->render('tags', ['tags' => $tags]);
     }
 
