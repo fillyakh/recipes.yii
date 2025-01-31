@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\Recipe;
 
 /** @var yii\web\View $this */
 /** @var app\models\Recipe $model */
@@ -10,6 +11,12 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Recipes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+if($model->popular == Recipe::IS_POPULAR){
+    $textPopularBtn = 'Remove from Popular';
+} else {
+    $textPopularBtn = 'Add to Popular';
+}
 ?>
 <div class="recipe-view">
 
@@ -20,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Ingredients', ['ingredient/index', 'recipe_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Instructions', ['instruction/index', 'recipe_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Tools', ['recipe-tools/index', 'recipe_id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a($textPopularBtn, ['popular/change', 'recipe_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Tags', ['recipe-tags/index', 'recipe_id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -48,6 +56,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'time',
             'cooking',
+            [
+                'attribute' => 'popular',
+                'value' => function($model) {
+                    return $model->popular ? 'Yes' : 'No';
+                },
+            ],
         ],
     ]) ?>
 

@@ -15,6 +15,7 @@ use app\models\ImgForm;
  */
 class RecipeController extends Controller
 {
+
     public $layout = 'admin';
     /**
      * @inheritDoc
@@ -58,6 +59,7 @@ class RecipeController extends Controller
      */
     public function actionView($id)
     {
+        // dd($id);
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

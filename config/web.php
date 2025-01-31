@@ -53,6 +53,8 @@ $config = [
                 "/recipes" => "main/recipes",
                 "/recipe/<recipe_id:\d+>" => "main/recipe",
                 "/admin" => "recipe/index",
+                "/about" => "main/about",
+                "/contact" => "main/contact",
             ],
         ],
     ],

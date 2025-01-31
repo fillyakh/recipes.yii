@@ -3,6 +3,7 @@
 /** @var string $content */
 
   use app\assets\PublicAsset;
+  use app\components\MyWidget;
 
   PublicAsset::register($this);
 ?>
@@ -33,18 +34,20 @@
         </div>
         <div class="nav-links">
           <a href="/" class="nav-link"> home </a>
-          <a href="about.html" class="nav-link"> about </a>
+          <a href="/about" class="nav-link"> about </a>
           <a href="/tags" class="nav-link"> tags </a>
           <a href="/recipes" class="nav-link"> recipes </a>
           <a href="/admin" class="nav-link">admin</a>
 
           <div class="nav-link contact-link">
-            <a href="contact.html" class="btn"> contact </a>
+            <a href="/contact" class="btn"> contact </a>
           </div>
         </div>
       </div>
     </nav>
     <!-- end of nav -->
+
+   
 
     <?= $content ?>
 

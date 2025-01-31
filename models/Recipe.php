@@ -15,6 +15,7 @@ use app\models\Ingredient;
  */
 class Recipe extends \yii\db\ActiveRecord
 {
+    public const IS_POPULAR = 1;
     /**
      * {@inheritdoc}
      */

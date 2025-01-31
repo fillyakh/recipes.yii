@@ -4,16 +4,9 @@
 <!-- main -->
 <main class="page">
     <section class="recipes-container">
-        <!-- tag container -->
-        <div class="tags-container">
-          <h4>recipes</h4>
-          <div class="tags-list">
-            <?php foreach($tags as $tag): ?>
-            <a href="/tag/<?= $tag->id ?>"><?= $tag->name ?> (1)</a>
-            <?php endforeach; ?>
-          </div>
-        </div>
-        <!-- end of tag container -->
+        
+    <?= app\components\MenuTags::widget(); ?>
+
         <!-- recipes list -->
         <div class="recipes-list">
             <?php foreach($recipes as $recipe):?>

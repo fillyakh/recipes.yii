@@ -18,9 +18,8 @@ class MainController extends Controller
     public function actionIndex()
     {
         $recipes = Recipe::find()->all(); 
-        $tags = Tag::find()->all();
         // dd($tags[0]->countRecipes);
-        return $this->render('index', ['recipes' => $recipes, 'tags' => $tags]);
+        return $this->render('index', ['recipes' => $recipes]);
     }
     
     public function actionTag($tag_id)
@@ -63,5 +62,16 @@ class MainController extends Controller
         // dd($ingredients);
         // dd($tag);
         return $this->render('recipe', ['recipe' => $recipe]);
+    }
+
+    public function actionAbout()
+    {
+        // dd($recipes);
+        return $this->render('about');
+    }
+
+    public function actionContact()
+    {
+        dd('contact');
     }
 }

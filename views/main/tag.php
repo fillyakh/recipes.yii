@@ -5,7 +5,7 @@
     <div class="recipes-list">
       <!-- single recipe -->
       <?php foreach($tag->recipes as $recipe): ?>
-      <a href="/main/single?id=<?= $recipe->id ?>" class="recipe">
+      <a href="/recipe/<?= $recipe->id ?>" class="recipe">
         <img
           src="/img/recipes/<?= $recipe->img ?>"  
           class="img recipe-img"
