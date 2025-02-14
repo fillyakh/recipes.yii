@@ -1,4 +1,7 @@
 
+    <?php
+      use yii\helpers\Html; 
+    ?>
     <main class="page">
      <section class="contact-container">
           <article class="contact-info">
@@ -14,18 +17,33 @@
             </p>
           </article>
           <article>
-            <form class="form contact-form">
+          <?php if(Yii::$app->session->hasFlash('success')): ?>
+            <div class="alert alert-success">
+              <?= Yii::$app->session->getFlash('success') ?>
+            </div>
+          <?php endif; ?>
+          <?php if (!empty($errors)): ?>
+            <div class="alert alert-danger">
+                <ul>
+                    <?php foreach ($errors as $attribute => $messages): ?>
+                        <li><strong><?= $attribute ?>:</strong> <?= implode(', ', $messages) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+          <?php endif; ?>
+            <form class="form contact-form" action="message/create" method="POST">
+              <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>  
               <div class="form-row">
                 <label html="name" class="form-label">your name</label>
-                <input type="text" name="name" id="name" class="form-input" />
+                <input type="text" name="name" id="name" class="form-input" value="<? if ($oldData) echo $oldData['name'] ?>"/>
               </div>
               <div class="form-row">
                 <label html="email" class="form-label">your email</label>
-                <input type="text" name="email" id="email" class="form-input" />
+                <input type="text" name="email" id="email" class="form-input" value="<?if ($oldData) echo $oldData['email']?>"/>
               </div>
               <div class="form-row">
                 <label html="message" class="form-label">message</label>
-                <textarea name="message" id="message" class="form-textarea"></textarea>
+                <textarea name="message" id="message" class="form-textarea" ><?if ($oldData) echo $oldData['message'] ?></textarea>
               </div>
               <button type="submit" class="btn btn-block">
                 submit
@@ -37,39 +55,19 @@
        <section class="featured-recipes">
         <h5 class="featured-title">Look At This Awesomesouce!</h5>
         <div class="recipes-list">
+          <?php foreach ($recipes as $recipe): ?>
           <!-- single recipe -->
           <a href="single-recipe.html" class="recipe">
             <img
-              src="../assets/img/recipes/recipe-1.jpeg"
+              src="/web/img/recipes/<?= $recipe->img ?>"
               class="img recipe-img"
               alt=""
             />
-            <h5>Carne Asada</h5>
-            <p>Prep : 15min | Cook : 5min</p>
+            <h5><?= $recipe->name ?></h5>
+            <p>Prep :<?= $recipe->time ?> min | Cook : <?= $recipe->cooking?> min</p>
           </a>
           <!-- end of single recipe -->
-          <!-- single recipe -->
-          <a href="single-recipe.html" class="recipe">
-            <img
-              src="../assets/img/recipes/recipe-2.jpeg"
-              class="img recipe-img"
-              alt=""
-            />
-            <h5>Greek Ribs</h5>
-            <p>Prep : 15min | Cook : 5min</p>
-          </a>
-          <!-- end of single recipe -->
-          <!-- single recipe -->
-          <a href="single-recipe.html" class="recipe">
-            <img
-              src="../assets/img/recipes/recipe-3.jpeg"
-              class="img recipe-img"
-              alt=""
-            />
-            <h5>Vegetable Soup</h5>
-            <p>Prep : 15min | Cook : 5min</p>
-          </a>
-          <!-- end of single recipe -->
+           <?php endforeach; ?>
         </div>
       </section>
     </main>

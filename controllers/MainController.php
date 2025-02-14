@@ -72,6 +72,12 @@ class MainController extends Controller
 
     public function actionContact()
     {
-        dd('contact');
+        // dd('contact');
+        $recipes = Recipe::find()->where(['popular' => Recipe::IS_POPULAR])->all();
+        $errors = Yii::$app->session->getFlash('formErrors', []);
+        $oldData = Yii::$app->session->getFlash('oldData', []);
+        // var_dump();
+        // dd($recipes);
+        return $this->render('contact', ['recipes' => $recipes, 'errors' => $errors, 'oldData' => $oldData]);
     }
 }
